@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./logo.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
@@ -14,14 +15,14 @@
         </span>
         <div class="form-box login">
             <h1>Login</h1>
-            <form action="#">
+            <form action="#" id="loginForm">
             
                 <div class="input-box">
-                    <input type="text" placeholder="Email" required>
+                    <input type="text" id="newEmail1" name="newEmail" placeholder="Email" required>
                     <i class='bx bx-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" id="newPassword1" name="newPassword" placeholder="Password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="remember-forgot">
@@ -37,17 +38,17 @@
 
         <div class="form-box register">
             <h1>Registration</h1>
-            <form action="#">
+            <form action="" method="post" id="registrationForm">
                     <div class="input-box">
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" id="name" name="name" placeholder="Username" required>
                         <i class='bx bxs-user'></i>
                     </div>
-                    <div class="input-box">
-                        <input type="text" placeholder="Email" required>
+                    <div class="input-box" id="registerEmail">
+                        <input type="text" id="newEmail" name="newEmail" placeholder="Email" required>
                         <i class='bx bx-envelope'></i>
                     </div>
-                    <div class="input-box">
-                        <input type="password" placeholder="Password" required>
+                    <div class="input-box"  id="registerPassword">
+                        <input type="password" id="newPassword" name="newPassword" placeholder="Password" required>
                         <i class='bx bxs-lock-alt'></i>
                     </div>
                     <div class="remember-forgot">
@@ -60,7 +61,12 @@
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script src="./script.js"></script>
+    <script src="firebaseConfig.js" type="module"></script>
+<!-- <script src="Authentication.js" type="module"></script> -->
+
     
 </body>
 </html>
