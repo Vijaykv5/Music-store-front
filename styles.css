@@ -24,8 +24,8 @@
   .topbar {
     display: flex;
     justify-content: space-between;
-    
-    padding: 14px 30px;
+    padding: 25px 30px;
+    align-items: center;
   }
   .topbar .prev-next-buttons button {
     color: #7a7a7a;
@@ -36,11 +36,12 @@
     font-size: 18px;
     border: 0px;
     background-color: #090909;
-    margin-right: 10px;
+    margin-left: -90px;
   }
   .topbar .navbar {
     display: flex;
     align-items: center;
+    margin-left: auto;
   }
   .topbar .navbar ul {
     list-style: none;
@@ -185,3 +186,8 @@
     border-radius: 40px;
     cursor: pointer;
   }
+
+
+
+
+  
