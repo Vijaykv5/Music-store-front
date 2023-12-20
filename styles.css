@@ -36,7 +36,7 @@
     font-size: 18px;
     border: 0px;
     background-color: #090909;
-    margin-right: 10px;
+    margin-left: -90px;
   }
   .topbar .navbar {
     display: flex;
@@ -185,3 +185,8 @@
     border-radius: 40px;
     cursor: pointer;
   }
+
+
+
+
+  
