@@ -6,7 +6,7 @@ var firebaseConfig = {
   messagingSenderId: "40044824261",
   appId: "1:40044824261:web:9cacf3d3086adf160112ac",
   measurementId: "G-6DYJF6S7T3",
-  databaseURL: "https://dbms--music-default-rtdb.firebaseio.com/" // Add this line with your database URL
+  databaseURL: "https://dbms--music-default-rtdb.firebaseio.com/" 
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -15,16 +15,17 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
-function showToast(message) {
+function showToast(message,isError = false) {
   Toastify({
     text: message,
-    duration: 3000, // Duration in milliseconds
+    duration: 3000, 
     close: true,
-    gravity: 'top', // 'top' or 'bottom'
+    gravity: 'top', 
     position: 'right',
-    backgroundColor:'green' , // 'left', 'center' or 'right'
+    backgroundColor: isError ? 'green' : 'red' , 
   }).showToast();
 }
+
 
 function register() {
   var name = document.getElementById("name").value;
@@ -34,63 +35,56 @@ function register() {
 
   firebase.auth().createUserWithEmailAndPassword(newEmail, newPassword)
       .then((userCredential) => {
-          // Registration successful
+        
           var user = userCredential.user;
           console.log('User registered:',  userCredential);
-          showToast('Successfully registered!');
+          showToast('Successfully registered!',true);
           setTimeout(() => {
-            window.location.href = "head.html"; // Replace "home.html" with your actual home page URL
+            window.location.href = "main.html"; 
           }, 3000);
-          // Additional logic after successful registration if needed
+         
       })
       .catch((error) => {
-          // Handle errors during registration
           var errorCode = error.code;
           var errorMessage = error.message;
-          console.error('Registration error:', errorCode, errorMessage);
-          // Display error message to the user or handle accordingly
+          console.error('Registration error:', errorMessage);
+          showToast(errorMessage,false);
+          
       });
 }
+const loginForm = document.getElementById('loginForm');
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('newEmail1').value;
+  const password = document.getElementById('newPassword1').value;
 
-//login
-// function login() {
-//   var email = document.getElementById("newEmail").value; // Assuming your login form has an input field with id="email"
-//   var password = document.getElementById("newPassword").value; // Assuming your login form has an input field with id="password"
+  auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log('Logged in:', userCredential);
+      showToast('Successfully logged In!',true);
+          setTimeout(() => {
+            window.location.href = "main.html"; 
+          }, 3000);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      if (error?.code === 'auth/internal-error') {
+        const firebaseError = JSON.parse(error?.message);
+        const firebaseErrorMessage = firebaseError?.error?.errors[0]?.message || errorMessage;
+        showToast(firebaseErrorMessage);
+        console.error('Firebase Error:', firebaseErrorMessage);
+      } else {
+        showToast(errorMessage,true);
+        console.error('Error:', errorMessage);
+      }
+    });
+});
 
-//   firebase.auth().signInWithEmailAndPassword(email, password)
-//     .then((userCredential) => {
-//       // Login successful
-//       var user = userCredential.user;
-//       console.log('User logged in:', user);
-//       showToast('Successfully logged in!');
-//       setTimeout(() => {
-//         window.location.href = "head.html"; // Replace "head.html" with your actual redirect URL after login
-//       }, 3000);
-//       // Additional logic after successful login if needed
-//     })
-//     .catch((error) => {
-//       // Handle errors during login
-//       var errorCode = error.code;
-//       var errorMessage = error.message;
-//       console.error('Login error:', errorCode, errorMessage);
-//       // Display error message to the user or handle accordingly
-//     });
-// }
-
-
-
-
-// document.getElementById('loginForm').addEventListener('submit', function(event) {
-//   event.preventDefault(); // Prevent default form submission
-//   login(); // Call your login function
-// });
-
-
-
-
-  document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    register(); // Call your registration function
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    register(); 
 });
 
 
